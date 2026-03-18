@@ -67,7 +67,8 @@
 
     .noise,
     .glow,
-    .vignette {
+    .vignette,
+    .frame {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -98,6 +99,35 @@
         linear-gradient(90deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.4) 22%, rgba(5, 5, 5, 0.4) 78%, rgba(5, 5, 5, 0.9) 100%),
         linear-gradient(180deg, rgba(5, 5, 5, 0.72) 0%, rgba(5, 5, 5, 0.12) 30%, rgba(5, 5, 5, 0.12) 72%, rgba(5, 5, 5, 0.82) 100%);
       z-index: 1;
+    }
+
+    .frame {
+      z-index: 2;
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      width: 108px;
+      height: 108px;
+      opacity: 0.42;
+      border-image: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(167, 139, 250, 0.45), rgba(255, 255, 255, 0.02)) 1;
+      filter: drop-shadow(0 0 18px rgba(167, 139, 250, 0.12));
+    }
+
+    .frame::before {
+      top: 18px;
+      left: 18px;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .frame::after {
+      right: 18px;
+      bottom: 18px;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
     }
 
     .brand {
@@ -324,17 +354,8 @@
       animation-delay: 0.16s;
     }
 
-    .copy {
-      width: min(560px, 100%);
-      margin: 20px auto 0;
-      font-size: clamp(0.94rem, 1.05vw, 1rem);
-      line-height: 1.8;
-      color: rgba(248, 247, 244, 0.74);
-      text-wrap: balance;
-    }
-
     .type-line {
-      margin-top: 24px;
+      margin-top: 30px;
       min-height: 46px;
       font-family: "Allura", cursive;
       font-size: clamp(1.9rem, 2.8vw, 2.5rem);
@@ -583,6 +604,12 @@
         opacity: 0.48;
       }
 
+      .frame::before,
+      .frame::after {
+        width: 72px;
+        height: 72px;
+      }
+
       h1 {
         font-size: clamp(2rem, 12vw, 3.2rem);
       }
@@ -597,10 +624,11 @@
     }
   </style>
 </head>
-<body>
+  <body>
   <div class="noise"></div>
   <div class="glow"></div>
   <div class="vignette"></div>
+  <div class="frame"></div>
 
   <div class="brand" aria-label="Dropamyn">
     <span class="brand-mark" aria-hidden="true"></span>
@@ -694,10 +722,6 @@
           <span class="headline-line"><span>for <span class="headline-accent">hype drops</span>,</span></span>
           <span class="headline-line"><span>limited launches, and instant obsession.</span></span>
         </h1>
-        <p class="copy">
-          Sneakers, streetwear, gaming, tech, collectibles, and the kind of launches people screenshot,
-          repost, and miss in minutes. Dropamyn is where that culture gets organized.
-        </p>
         <div class="type-line" aria-live="polite">
           <span id="typed-text"></span><span class="cursor">|</span>
         </div>
