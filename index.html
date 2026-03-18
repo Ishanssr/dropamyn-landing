@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Dropamyn</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -20,13 +20,13 @@ body {
   position: absolute;
   top: 30px;
   left: 40px;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #eaeaea;
   z-index: 10;
 }
 
-/* BACKGROUND SCROLL GRID */
+/* BACKGROUND */
 .bg-wrapper {
   position: fixed;
   width: 100%;
@@ -40,19 +40,25 @@ body {
   grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   width: 200%;
-  animation: scroll 40s linear infinite;
+  animation: scroll 45s linear infinite;
   transform: rotate(-8deg);
 }
 
 .bg-track img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
-  opacity: 0.5;
-  border-radius: 10px;
+  opacity: 0.45;
+  border-radius: 12px;
+  transition: transform 0.4s ease;
 }
 
-/* DARK OVERLAY */
+.bg-track img:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* OVERLAY */
 .overlay {
   position: fixed;
   width: 100%;
@@ -64,36 +70,53 @@ body {
 /* HERO */
 .hero {
   position: absolute;
-  top: 45%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  max-width: 900px;
-  padding: 20px;
+  max-width: 850px;
 }
 
 .hero h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
+/* COMING SOON */
 .tagline {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #7aa2ff;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
+/* SUB */
 .sub {
-  margin-top: 10px;
-  opacity: 0.85;
+  margin-top: 8px;
   font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* CTA */
+.cta-bar {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.cta-bar .label {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  opacity: 0.7;
 }
 
 .input-box {
-  margin-top: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 input {
@@ -110,14 +133,13 @@ button {
   color: white;
   cursor: pointer;
   border-radius: 0 6px 6px 0;
-  font-weight: 500;
 }
 
 button:hover {
   background: #6f9bff;
 }
 
-/* ANIMATION */
+/* SCROLL ANIMATION */
 @keyframes scroll {
   0% { transform: translateY(0) rotate(-8deg); }
   100% { transform: translateY(-50%) rotate(-8deg); }
@@ -134,28 +156,27 @@ button:hover {
 <div class="bg-wrapper">
   <div class="bg-track">
 
-    <!-- Reliable image set (repeat for density) -->
-    <img src="https://picsum.photos/300/200?random=1">
-    <img src="https://picsum.photos/300/200?random=2">
-    <img src="https://picsum.photos/300/200?random=3">
-    <img src="https://picsum.photos/300/200?random=4">
-    <img src="https://picsum.photos/300/200?random=5">
-    <img src="https://picsum.photos/300/200?random=6">
+    <!-- SNEAKERS / STREETWEAR / TECH -->
+    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
+    <img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+    <img src="https://images.unsplash.com/photo-1528701800489-20be3c1d5e56">
 
-    <img src="https://picsum.photos/300/200?random=7">
-    <img src="https://picsum.photos/300/200?random=8">
-    <img src="https://picsum.photos/300/200?random=9">
-    <img src="https://picsum.photos/300/200?random=10">
-    <img src="https://picsum.photos/300/200?random=11">
-    <img src="https://picsum.photos/300/200?random=12">
+    <img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
+    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
+    <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
 
-    <!-- repeat again -->
-    <img src="https://picsum.photos/300/200?random=13">
-    <img src="https://picsum.photos/300/200?random=14">
-    <img src="https://picsum.photos/300/200?random=15">
-    <img src="https://picsum.photos/300/200?random=16">
-    <img src="https://picsum.photos/300/200?random=17">
-    <img src="https://picsum.photos/300/200?random=18">
+    <!-- GAMING / TECH -->
+    <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
+    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7">
+    <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6">
+
+    <!-- REPEAT FOR DENSITY -->
+    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+    <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
+    <img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
 
   </div>
 </div>
@@ -173,6 +194,14 @@ button:hover {
 
   <div class="sub">
     Be first. Be only.
+  </div>
+
+</div>
+
+<div class="cta-bar">
+
+  <div class="label">
+    Register to get early access
   </div>
 
   <div class="input-box">
