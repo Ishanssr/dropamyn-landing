@@ -20,6 +20,8 @@
       --surface: rgba(255, 255, 255, 0.08);
       --surface-strong: rgba(255, 255, 255, 0.12);
       --border: rgba(255, 255, 255, 0.12);
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-strong: rgba(255, 255, 255, 0.14);
       --text: #f8f7f4;
       --muted: rgba(248, 247, 244, 0.72);
       --accent: #5b8cff;
@@ -85,10 +87,11 @@
 
     .glow {
       background:
-        radial-gradient(circle at center, rgba(91, 140, 255, 0.18), transparent 35%),
-        radial-gradient(circle at 65% 45%, rgba(255, 141, 92, 0.1), transparent 25%);
-      filter: blur(30px);
-      opacity: 0.7;
+        radial-gradient(circle at center, rgba(91, 140, 255, 0.24), transparent 28%),
+        radial-gradient(circle at 68% 46%, rgba(255, 141, 92, 0.14), transparent 22%),
+        radial-gradient(circle at 34% 70%, rgba(143, 176, 255, 0.16), transparent 20%);
+      filter: blur(36px);
+      opacity: 0.85;
       z-index: -1;
     }
 
@@ -229,8 +232,86 @@
     }
 
     .hero {
-      width: min(780px, 100%);
+      position: relative;
+      width: min(760px, 100%);
       text-align: center;
+      padding: 34px 32px 28px;
+      border-radius: 38px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 26px 90px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(30px) saturate(130%);
+      -webkit-backdrop-filter: blur(30px) saturate(130%);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 220ms ease-out;
+      animation: heroFloat 9s ease-in-out infinite;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 37px;
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.06)),
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.12), transparent 32%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -38%;
+      left: -25%;
+      width: 54%;
+      height: 180%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+      transform: rotate(16deg);
+      opacity: 0.45;
+      filter: blur(14px);
+      animation: glassSweep 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .float-pill {
+      position: absolute;
+      z-index: 1;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+      color: rgba(248, 247, 244, 0.82);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: badgeFloat 7s ease-in-out infinite;
+    }
+
+    .float-pill.left {
+      top: 78px;
+      left: -58px;
+      animation-delay: -1.5s;
+    }
+
+    .float-pill.right {
+      right: -54px;
+      bottom: 132px;
+      animation-delay: -3s;
     }
 
     .eyebrow {
@@ -262,38 +343,41 @@
     h1 {
       margin: 0;
       font-family: "Sora", sans-serif;
-      font-size: clamp(2.9rem, 6.2vw, 5.4rem);
-      line-height: 0.98;
-      letter-spacing: -0.07em;
+      font-size: clamp(2.55rem, 5vw, 4.45rem);
+      line-height: 1.01;
+      letter-spacing: -0.075em;
       text-wrap: balance;
+      max-width: 13ch;
+      margin-inline: auto;
+      text-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
     }
 
     .headline-accent {
       display: inline-block;
-      background: linear-gradient(135deg, #ffffff 0%, #e3ebff 52%, #7aa2ff 100%);
+      background: linear-gradient(135deg, #edf2ff 0%, #cfdcff 45%, #7aa2ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 28px rgba(91, 140, 255, 0.16);
+      text-shadow: 0 0 30px rgba(91, 140, 255, 0.22);
     }
 
     .copy {
       width: min(620px, 100%);
-      margin: 20px auto 0;
-      font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+      margin: 18px auto 0;
+      font-size: clamp(0.98rem, 1.2vw, 1.04rem);
       line-height: 1.72;
-      color: var(--muted);
+      color: rgba(248, 247, 244, 0.76);
       text-wrap: balance;
     }
 
     .type-line {
       margin-top: 22px;
-      min-height: 58px;
+      min-height: 52px;
       font-family: "Allura", cursive;
-      font-size: clamp(2.3rem, 4.1vw, 3.7rem);
+      font-size: clamp(2rem, 3.4vw, 3rem);
       line-height: 1;
       color: #9bb8ff;
-      text-shadow: 0 0 28px rgba(91, 140, 255, 0.22);
+      text-shadow: 0 0 28px rgba(91, 140, 255, 0.28);
     }
 
     .cursor {
@@ -315,10 +399,15 @@
       margin: 32px auto 0;
       padding: 16px;
       border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045));
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(28px) saturate(145%);
+      -webkit-backdrop-filter: blur(28px) saturate(145%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 24px 70px rgba(0, 0, 0, 0.32);
     }
 
     .waitlist-head {
@@ -339,7 +428,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       outline: none;
-      background: rgba(0, 0, 0, 0.32);
+      background: rgba(5, 5, 5, 0.34);
       color: var(--text);
       font: inherit;
       transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
@@ -419,6 +508,35 @@
       }
     }
 
+    @keyframes heroFloat {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes badgeFloat {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glassSweep {
+      0% {
+        transform: translateX(-40%) rotate(16deg);
+      }
+      100% {
+        transform: translateX(220%) rotate(16deg);
+      }
+    }
+
     @media (max-width: 1024px) {
       .mosaic {
         inset: -18vh -24vw;
@@ -428,6 +546,14 @@
       .shell {
         align-items: flex-start;
         padding-top: 112px;
+      }
+
+      .float-pill.left {
+        left: -10px;
+      }
+
+      .float-pill.right {
+        right: -8px;
       }
     }
 
@@ -448,7 +574,17 @@
 
       .hero {
         width: min(680px, 100%);
+        padding: 26px 18px 22px;
+        border-radius: 28px;
         padding-bottom: 22px;
+      }
+
+      .hero::before {
+        border-radius: 27px;
+      }
+
+      .float-pill {
+        display: none;
       }
 
       .mosaic {
@@ -482,7 +618,7 @@
       }
 
       .type-line {
-        min-height: 56px;
+        min-height: 48px;
       }
     }
 
@@ -492,7 +628,7 @@
       }
 
       h1 {
-        font-size: clamp(2.8rem, 14vw, 4.2rem);
+        font-size: clamp(2.45rem, 13vw, 3.8rem);
       }
 
       .copy {
@@ -595,31 +731,35 @@
 
   <main class="shell">
     <section class="hero">
-      <div class="eyebrow">Early access for India&apos;s next drop generation</div>
-      <h1>
-        India&apos;s new home for
-        <span class="headline-accent">hype drops</span>,
-        limited launches, and instant obsession.
-      </h1>
-      <p class="copy">
-        Sneakers, streetwear, gaming, tech, collectibles, and the kind of launches people screenshot,
-        repost, and miss in minutes. Dropamyn is where that culture gets organized.
-      </p>
-      <div class="type-line" aria-live="polite">
-        <span id="typed-text"></span><span class="cursor">|</span>
-      </div>
-      <div class="microcopy">Coming soon, but not quietly.</div>
+      <div class="float-pill left">Hype radar live</div>
+      <div class="float-pill right">Built for the first wave</div>
+      <div class="hero-inner">
+        <div class="eyebrow">Early access for India&apos;s next drop generation</div>
+        <h1>
+          India&apos;s new home for
+          <span class="headline-accent">hype drops</span>,
+          limited launches, and instant obsession.
+        </h1>
+        <p class="copy">
+          Sneakers, streetwear, gaming, tech, collectibles, and the kind of launches people screenshot,
+          repost, and miss in minutes. Dropamyn is where that culture gets organized.
+        </p>
+        <div class="type-line" aria-live="polite">
+          <span id="typed-text"></span><span class="cursor">|</span>
+        </div>
+        <div class="microcopy">Coming soon, but not quietly.</div>
 
-      <div class="waitlist">
-        <div class="waitlist-head">Join the waitlist for early access, launch updates, and first-wave invites.</div>
-        <form class="waitlist-form" id="waitlist-form">
-          <label class="sr-only" for="email">Email address</label>
-          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
-          <button type="submit">Request Invite</button>
-        </form>
-        <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
+        <div class="waitlist">
+          <div class="waitlist-head">Join the waitlist for early access, launch updates, and first-wave invites.</div>
+          <form class="waitlist-form" id="waitlist-form">
+            <label class="sr-only" for="email">Email address</label>
+            <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+            <button type="submit">Request Invite</button>
+          </form>
+          <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
+        </div>
       </div>
-    </section>
+      </section>
   </main>
 
   <script>
@@ -633,6 +773,7 @@
     const typedText = document.getElementById("typed-text");
     const form = document.getElementById("waitlist-form");
     const feedback = document.getElementById("feedback");
+    const hero = document.querySelector(".hero");
     let phraseIndex = 0;
     let charIndex = 0;
     let deleting = false;
@@ -659,6 +800,18 @@
     }
 
     tickType();
+
+    if (hero && window.matchMedia("(min-width: 769px)").matches) {
+      window.addEventListener("mousemove", (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 10;
+        const y = (event.clientY / window.innerHeight - 0.5) * 8;
+        hero.style.transform = `perspective(1200px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-4px)`;
+      });
+
+      document.addEventListener("mouseleave", () => {
+        hero.style.transform = "";
+      });
+    }
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
