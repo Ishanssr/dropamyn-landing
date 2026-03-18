@@ -1,215 +1,706 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dropamyn</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropamyn | Early Access</title>
+  <meta
+    name="description"
+    content="Dropamyn is building India's next-gen drop culture hub for sneakers, streetwear, collectibles, gaming, and limited releases."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@500;600;700;800&family=Allura&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: rgba(255, 255, 255, 0.08);
+      --surface-strong: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f8f7f4;
+      --muted: rgba(248, 247, 244, 0.72);
+      --accent: #5b8cff;
+      --accent-soft: #8fb0ff;
+      --accent-warm: #ff8d5c;
+      --success: #86efac;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
-  background: black;
-  color: white;
-}
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
-/* LOGO */
-.logo {
-  position: absolute;
-  top: 30px;
-  left: 40px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #eaeaea;
-  z-index: 10;
-}
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(91, 140, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(255, 141, 92, 0.14), transparent 25%),
+        linear-gradient(180deg, #020202 0%, #070707 100%);
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
+    }
 
-/* BACKGROUND */
-.bg-wrapper {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -2;
-}
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
 
-.bg-track {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
-  width: 200%;
-  animation: scroll 45s linear infinite;
-  transform: rotate(-8deg);
-}
+    .noise,
+    .glow,
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
 
-.bg-track img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  opacity: 0.45;
-  border-radius: 12px;
-  transition: transform 0.4s ease;
-}
+    .noise {
+      opacity: 0.05;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
 
-.bg-track img:hover {
-  transform: scale(1.1);
-  opacity: 0.9;
-}
+    .glow {
+      background:
+        radial-gradient(circle at center, rgba(91, 140, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 65% 45%, rgba(255, 141, 92, 0.1), transparent 25%);
+      filter: blur(30px);
+      opacity: 0.7;
+      z-index: -1;
+    }
 
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0,0,0,0.2), black 70%);
-  z-index: -1;
-}
+    .vignette {
+      background:
+        linear-gradient(90deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.4) 22%, rgba(5, 5, 5, 0.4) 78%, rgba(5, 5, 5, 0.9) 100%),
+        linear-gradient(180deg, rgba(5, 5, 5, 0.72) 0%, rgba(5, 5, 5, 0.12) 30%, rgba(5, 5, 5, 0.12) 72%, rgba(5, 5, 5, 0.82) 100%);
+      z-index: 1;
+    }
 
-/* HERO */
-.hero {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  max-width: 850px;
-}
+    .brand {
+      position: fixed;
+      top: 28px;
+      left: 34px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.04em;
+    }
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  line-height: 1.3;
-}
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      box-shadow: 0 0 22px rgba(91, 140, 255, 0.45);
+    }
 
-/* COMING SOON */
-.tagline {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 1.8rem;
-  color: #7aa2ff;
-  margin-top: 20px;
-}
+    .brand-text {
+      font-family: "Sora", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
 
-/* SUB */
-.sub {
-  margin-top: 8px;
-  font-size: 1rem;
-  opacity: 0.7;
-}
+    .mosaic {
+      position: fixed;
+      inset: -14vh -6vw;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 18px;
+      transform: rotate(-11deg) scale(1.06);
+      z-index: 0;
+    }
 
-/* CTA */
-.cta-bar {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+      will-change: transform;
+    }
 
-.cta-bar .label {
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-  opacity: 0.7;
-}
+    .column[data-speed="slow"] {
+      animation: drift-up 34s linear infinite;
+    }
 
-.input-box {
-  display: flex;
-  justify-content: center;
-}
+    .column[data-speed="mid"] {
+      animation: drift-down 28s linear infinite;
+    }
 
-input {
-  padding: 14px;
-  border: none;
-  width: 260px;
-  border-radius: 6px 0 0 6px;
-}
+    .column[data-speed="fast"] {
+      animation: drift-up 22s linear infinite;
+    }
 
-button {
-  padding: 14px 20px;
-  background: #4a7dff;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 0 6px 6px 0;
-}
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      min-height: 220px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+    }
 
-button:hover {
-  background: #6f9bff;
-}
+    .card.tall {
+      min-height: 300px;
+    }
 
-/* SCROLL ANIMATION */
-@keyframes scroll {
-  0% { transform: translateY(0) rotate(-8deg); }
-  100% { transform: translateY(-50%) rotate(-8deg); }
-}
-</style>
+    .card.wide {
+      min-height: 250px;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.38));
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(1.04);
+      filter: saturate(0.95) contrast(1.02);
+    }
+
+    .card-label {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(5, 5, 5, 0.58);
+      backdrop-filter: blur(12px);
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(248, 247, 244, 0.88);
+    }
+
+    .card-label::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      box-shadow: 0 0 12px rgba(91, 140, 255, 0.5);
+    }
+
+    .shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 108px 24px 40px;
+    }
+
+    .hero {
+      width: min(920px, 100%);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      margin-bottom: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.76);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      box-shadow: 0 0 14px rgba(143, 176, 255, 0.7);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(3rem, 7vw, 6.3rem);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+      text-wrap: balance;
+    }
+
+    .headline-accent {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffffff 0%, #e3ebff 52%, #7aa2ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 28px rgba(91, 140, 255, 0.16);
+    }
+
+    .copy {
+      width: min(720px, 100%);
+      margin: 22px auto 0;
+      font-size: clamp(1rem, 1.8vw, 1.22rem);
+      line-height: 1.65;
+      color: var(--muted);
+      text-wrap: balance;
+    }
+
+    .type-line {
+      margin-top: 20px;
+      min-height: 72px;
+      font-family: "Allura", cursive;
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      line-height: 1;
+      color: #9bb8ff;
+      text-shadow: 0 0 28px rgba(91, 140, 255, 0.22);
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 4px;
+      color: rgba(155, 184, 255, 0.95);
+      animation: blink 0.9s steps(1) infinite;
+    }
+
+    .microcopy {
+      margin-top: 8px;
+      font-size: 0.98rem;
+      letter-spacing: 0.02em;
+      color: rgba(248, 247, 244, 0.62);
+    }
+
+    .waitlist {
+      width: min(640px, 100%);
+      margin: 36px auto 0;
+      padding: 18px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .waitlist-head {
+      margin-bottom: 14px;
+      font-size: 0.96rem;
+      color: rgba(248, 247, 244, 0.74);
+    }
+
+    .waitlist-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .waitlist input {
+      width: 100%;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      outline: none;
+      background: rgba(0, 0, 0, 0.32);
+      color: var(--text);
+      font: inherit;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .waitlist input::placeholder {
+      color: rgba(248, 247, 244, 0.4);
+    }
+
+    .waitlist input:focus {
+      border-color: rgba(91, 140, 255, 0.6);
+      background: rgba(0, 0, 0, 0.44);
+      transform: translateY(-1px);
+    }
+
+    .waitlist button {
+      padding: 18px 24px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--accent), #739cff);
+      color: white;
+      font: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(91, 140, 255, 0.26);
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .waitlist button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(91, 140, 255, 0.32);
+      filter: brightness(1.05);
+    }
+
+    .waitlist button:active {
+      transform: translateY(0);
+    }
+
+    .feedback {
+      min-height: 24px;
+      margin-top: 12px;
+      font-size: 0.92rem;
+      color: rgba(248, 247, 244, 0.7);
+    }
+
+    .feedback.success {
+      color: var(--success);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.88rem;
+      color: rgba(248, 247, 244, 0.7);
+      backdrop-filter: blur(12px);
+    }
+
+    @keyframes drift-up {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-32%);
+      }
+    }
+
+    @keyframes drift-down {
+      0% {
+        transform: translateY(-18%);
+      }
+      100% {
+        transform: translateY(10%);
+      }
+    }
+
+    @keyframes blink {
+      0%,
+      50% {
+        opacity: 1;
+      }
+      50.1%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        overflow-y: auto;
+      }
+
+      .mosaic {
+        inset: -18vh -26vw;
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .brand {
+        left: 22px;
+        top: 20px;
+      }
+
+      .brand-text {
+        font-size: 1.6rem;
+      }
+
+      .shell {
+        padding: 96px 18px 32px;
+        min-height: auto;
+      }
+
+      .hero {
+        padding-bottom: 22px;
+      }
+
+      .mosaic {
+        inset: -12vh -42vw;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+        transform: rotate(-8deg) scale(1.08);
+      }
+
+      .card {
+        min-height: 180px;
+        border-radius: 22px;
+      }
+
+      .card.tall {
+        min-height: 240px;
+      }
+
+      .waitlist {
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .waitlist-form {
+        grid-template-columns: 1fr;
+      }
+
+      .waitlist button {
+        width: 100%;
+      }
+
+      .type-line {
+        min-height: 56px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      .mosaic {
+        opacity: 0.48;
+      }
+
+      .copy {
+        font-size: 0.98rem;
+      }
+
+      .microcopy {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="noise"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
 
-<div class="logo">Dropamyn</div>
-
-<div class="overlay"></div>
-
-<div class="bg-wrapper">
-  <div class="bg-track">
-
-    <!-- SNEAKERS / STREETWEAR / TECH -->
-    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
-    <img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
-    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
-    <img src="https://images.unsplash.com/photo-1528701800489-20be3c1d5e56">
-
-    <img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
-    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5">
-    <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
-    <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
-
-    <!-- GAMING / TECH -->
-    <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
-    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7">
-    <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6">
-
-    <!-- REPEAT FOR DENSITY -->
-    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
-    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
-    <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
-    <img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
-
-  </div>
-</div>
-
-<div class="hero">
-
-  <h1>
-    India’s drop culture starts now,<br>
-    get ready to hit the dopamine on Dropamyn.
-  </h1>
-
-  <div class="tagline">
-    Coming soon.
+  <div class="brand" aria-label="Dropamyn">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text">Dropamyn</span>
   </div>
 
-  <div class="sub">
-    Be first. Be only.
+  <div class="mosaic" aria-hidden="true">
+    <div class="column" data-speed="slow">
+      <article class="card tall">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Jordans</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Streetwear</span>
+      </article>
+      <article class="card wide">
+        <img src="https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Collectibles</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Headphones</span>
+      </article>
+    </div>
+
+    <div class="column" data-speed="mid">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Tech Drops</span>
+      </article>
+      <article class="card tall">
+        <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Gaming</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Fits</span>
+      </article>
+      <article class="card wide">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Limited Gear</span>
+      </article>
+    </div>
+
+    <div class="column" data-speed="fast">
+      <article class="card wide">
+        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Sneaker Heat</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Wearables</span>
+      </article>
+      <article class="card tall">
+        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Console Energy</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Bonkers Drops</span>
+      </article>
+    </div>
+
+    <div class="column" data-speed="mid">
+      <article class="card tall">
+        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Rare Pairs</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Street Icons</span>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Future Tech</span>
+      </article>
+      <article class="card wide">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="">
+        <span class="card-label">Play Hard</span>
+      </article>
+    </div>
   </div>
 
-</div>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Early access for India&apos;s next drop generation</div>
+      <h1>
+        India&apos;s new home for
+        <span class="headline-accent">hype drops</span>,
+        limited launches, and instant obsession.
+      </h1>
+      <p class="copy">
+        Sneakers, streetwear, gaming, tech, collectibles, and the kind of launches people screenshot,
+        repost, and miss in minutes. Dropamyn is where that culture gets organized.
+      </p>
+      <div class="type-line" aria-live="polite">
+        <span id="typed-text"></span><span class="cursor">|</span>
+      </div>
+      <div class="microcopy">Coming soon, but not quietly.</div>
 
-<div class="cta-bar">
+      <div class="waitlist">
+        <div class="waitlist-head">Join the waitlist for early access, launch updates, and first-wave invites.</div>
+        <form class="waitlist-form" id="waitlist-form">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+          <button type="submit">Request Invite</button>
+        </form>
+        <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
+        <div class="stats">
+          <div class="stat">Sneakers</div>
+          <div class="stat">Streetwear</div>
+          <div class="stat">Gaming</div>
+          <div class="stat">Tech</div>
+          <div class="stat">Collectibles</div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <div class="label">
-    Register to get early access
-  </div>
+  <script>
+    const phrases = [
+      "For the first to know.",
+      "For the culture, not the clutter.",
+      "For drops worth waiting for.",
+      "For hype that actually lands."
+    ];
 
-  <div class="input-box">
-    <input placeholder="Enter your email">
-    <button>Request Invite</button>
-  </div>
+    const typedText = document.getElementById("typed-text");
+    const form = document.getElementById("waitlist-form");
+    const feedback = document.getElementById("feedback");
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
 
-</div>
+    function tickType() {
+      const currentPhrase = phrases[phraseIndex];
+      typedText.textContent = deleting
+        ? currentPhrase.slice(0, charIndex--)
+        : currentPhrase.slice(0, charIndex++);
 
+      let delay = deleting ? 48 : 90;
+
+      if (!deleting && charIndex === currentPhrase.length + 1) {
+        deleting = true;
+        delay = 1500;
+      } else if (deleting && charIndex === -1) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        charIndex = 0;
+        delay = 300;
+      }
+
+      window.setTimeout(tickType, delay);
+    }
+
+    tickType();
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const emailInput = form.elements.email;
+      const email = emailInput.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        feedback.textContent = "Drop a valid email and we will hold your spot.";
+        feedback.className = "feedback";
+        emailInput.focus();
+        return;
+      }
+
+      const joined = JSON.parse(window.localStorage.getItem("dropamyn-waitlist") || "[]");
+      if (!joined.includes(email)) {
+        joined.push(email);
+        window.localStorage.setItem("dropamyn-waitlist", JSON.stringify(joined));
+      }
+
+      feedback.textContent = "You're on the list. We will reach out when the first wave opens.";
+      feedback.className = "feedback success";
+      form.reset();
+    });
+  </script>
 </body>
 </html>
