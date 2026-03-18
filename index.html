@@ -26,24 +26,30 @@ body {
   z-index: 10;
 }
 
-/* BACKGROUND GRID */
-.bg-container {
+/* BACKGROUND SCROLL GRID */
+.bg-wrapper {
   position: fixed;
-  width: 200%;
-  height: 200%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  transform: rotate(-10deg);
-  animation: scroll 30s linear infinite;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   z-index: -2;
 }
 
-.bg-container img {
+.bg-track {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  width: 200%;
+  animation: scroll 40s linear infinite;
+  transform: rotate(-8deg);
+}
+
+.bg-track img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  opacity: 0.35;
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 /* DARK OVERLAY */
@@ -51,36 +57,39 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(0,0,0,0.3), black 70%);
+  background: radial-gradient(circle, rgba(0,0,0,0.2), black 70%);
   z-index: -1;
 }
 
-/* HERO TEXT */
+/* HERO */
 .hero {
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
+  padding: 20px;
 }
 
 .hero h1 {
-  font-size: 3.2rem;
+  font-size: 4rem;
   font-weight: 600;
+  line-height: 1.2;
 }
 
-.hero .tagline {
+.tagline {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 1.6rem;
   color: #7aa2ff;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-.hero .sub {
-  margin-top: 15px;
-  opacity: 0.8;
+.sub {
+  margin-top: 10px;
+  opacity: 0.85;
+  font-size: 1rem;
 }
 
 .input-box {
@@ -108,10 +117,10 @@ button:hover {
   background: #6f9bff;
 }
 
-/* SCROLL ANIMATION */
+/* ANIMATION */
 @keyframes scroll {
-  0% { transform: translateY(0) rotate(-10deg); }
-  100% { transform: translateY(-50%) rotate(-10deg); }
+  0% { transform: translateY(0) rotate(-8deg); }
+  100% { transform: translateY(-50%) rotate(-8deg); }
 }
 </style>
 </head>
@@ -122,39 +131,55 @@ button:hover {
 
 <div class="overlay"></div>
 
-<div class="bg-container">
+<div class="bg-wrapper">
+  <div class="bg-track">
 
-<!-- LOTS OF IMAGES -->
-<img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
-<img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
-<img src="https://images.unsplash.com/photo-1528701800489-20be3c1d5e56">
-<img src="https://images.unsplash.com/photo-1519741497674-611481863552">
-<img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
-<img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6">
-<img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5">
-<img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
-<img src="https://images.unsplash.com/photo-1600185365319-2d6c15a4b6a3">
-<img src="https://images.unsplash.com/photo-1600185365526-35b5e1c1b0e7">
-<img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
+    <!-- Reliable image set (repeat for density) -->
+    <img src="https://picsum.photos/300/200?random=1">
+    <img src="https://picsum.photos/300/200?random=2">
+    <img src="https://picsum.photos/300/200?random=3">
+    <img src="https://picsum.photos/300/200?random=4">
+    <img src="https://picsum.photos/300/200?random=5">
+    <img src="https://picsum.photos/300/200?random=6">
 
+    <img src="https://picsum.photos/300/200?random=7">
+    <img src="https://picsum.photos/300/200?random=8">
+    <img src="https://picsum.photos/300/200?random=9">
+    <img src="https://picsum.photos/300/200?random=10">
+    <img src="https://picsum.photos/300/200?random=11">
+    <img src="https://picsum.photos/300/200?random=12">
+
+    <!-- repeat again -->
+    <img src="https://picsum.photos/300/200?random=13">
+    <img src="https://picsum.photos/300/200?random=14">
+    <img src="https://picsum.photos/300/200?random=15">
+    <img src="https://picsum.photos/300/200?random=16">
+    <img src="https://picsum.photos/300/200?random=17">
+    <img src="https://picsum.photos/300/200?random=18">
+
+  </div>
 </div>
 
 <div class="hero">
-  <h1>Drop culture is coming to India.</h1>
+
+  <h1>
+    India’s drop culture starts now,<br>
+    get ready to hit the dopamine on Dropamyn.
+  </h1>
 
   <div class="tagline">
-    Be first. Be early.
+    Coming soon.
   </div>
 
   <div class="sub">
-    Get early access to exclusive drops.
+    Be first. Be only.
   </div>
 
   <div class="input-box">
     <input placeholder="Enter your email">
     <button>Request Invite</button>
   </div>
+
 </div>
 
 </body>
