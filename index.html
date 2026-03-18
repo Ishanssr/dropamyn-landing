@@ -319,12 +319,11 @@
     h1 {
       margin: 0;
       font-family: "Papyrus", "Marker Felt", "Copperplate", fantasy;
-      font-size: clamp(1.86rem, 3.35vw, 2.9rem);
+      font-size: clamp(1.82rem, 3.2vw, 2.75rem);
       line-height: 1.14;
       letter-spacing: -0.02em;
       font-weight: 500;
-      text-wrap: balance;
-      max-width: 19ch;
+      max-width: none;
       margin-inline: auto;
       text-shadow: 0 10px 34px rgba(0, 0, 0, 0.24);
     }
@@ -349,6 +348,7 @@
 
     .headline-line > span {
       display: inline-block;
+      white-space: nowrap;
       animation: riseIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
@@ -763,7 +763,7 @@
         <h1>
           <span class="headline-line"><span>India&apos;s new home</span></span>
           <span class="headline-line"><span>for <span class="headline-accent">hype drops</span></span></span>
-          <span class="headline-line"><span>limited launches and obsession.</span></span>
+          <span class="headline-line"><span>limited launches and instant obsession.</span></span>
         </h1>
         <div class="type-line" aria-live="polite">
           <span id="typed-text"></span><span class="cursor">|</span>

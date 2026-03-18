@@ -91,7 +91,7 @@ export default async function handler(req, res) {
         ok: true,
         duplicate: true,
         priorityTier: existingRows[0].priority_tier,
-        message: "You are already prioritized. We will reach out when your wave opens.",
+        message: "This email is already prioritized. We will reach out when your wave opens.",
       });
       return res.status(result.status).json(result.payload);
     }
