@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@500;600;700;800&family=Allura&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@500;600;700;800&family=Allura&family=Cinzel:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
   <style>
@@ -286,6 +286,9 @@
       position: relative;
       z-index: 1;
       animation: heroEnter 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      min-height: min(760px, calc(100vh - 170px));
+      display: flex;
+      flex-direction: column;
     }
 
     .eyebrow {
@@ -313,13 +316,13 @@
 
     h1 {
       margin: 0;
-      font-family: "Outfit", sans-serif;
-      font-size: clamp(1.92rem, 3.6vw, 3.18rem);
-      line-height: 1.08;
-      letter-spacing: -0.05em;
+      font-family: "Cinzel", "Papyrus", serif;
+      font-size: clamp(1.94rem, 3.55vw, 3.1rem);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
       font-weight: 500;
       text-wrap: balance;
-      max-width: 14.4ch;
+      max-width: 17ch;
       margin-inline: auto;
       text-shadow: 0 10px 34px rgba(0, 0, 0, 0.24);
     }
@@ -359,7 +362,7 @@
       margin-top: 56px;
       min-height: 68px;
       font-family: "Allura", cursive;
-      font-size: clamp(2.38rem, 3.7vw, 3.2rem);
+      font-size: clamp(2.55rem, 3.95vw, 3.42rem);
       line-height: 1;
       color: #9bb8ff;
       text-shadow: 0 0 28px rgba(91, 140, 255, 0.28);
@@ -382,8 +385,9 @@
 
     .waitlist {
       width: min(540px, 100%);
-      margin: 74px auto 0;
+      margin: auto auto 0;
       padding: 0;
+      padding-top: 94px;
       border-radius: 0;
       background: transparent;
       border: 0;
@@ -571,6 +575,10 @@
         padding-bottom: 22px;
       }
 
+      .hero-inner {
+        min-height: auto;
+      }
+
       .eyebrow {
         display: none;
       }
@@ -617,7 +625,8 @@
       }
 
       .waitlist {
-        margin-top: 68px;
+        margin-top: 78px;
+        padding-top: 0;
       }
     }
 
@@ -635,7 +644,7 @@
       h1 {
         font-size: clamp(1.56rem, 9.3vw, 2.24rem);
         line-height: 1.12;
-        max-width: 13.2ch;
+        max-width: 14.2ch;
       }
 
       .type-line {
@@ -651,6 +660,7 @@
 
       .waitlist {
         margin-top: 72px;
+        padding-top: 0;
       }
     }
   </style>
@@ -750,8 +760,8 @@
         <div class="eyebrow">Early access for India&apos;s next drop generation</div>
         <h1>
           <span class="headline-line"><span>India&apos;s new home</span></span>
-          <span class="headline-line"><span>for <span class="headline-accent">hype drops</span>,</span></span>
-          <span class="headline-line"><span>limited launches, and instant obsession.</span></span>
+          <span class="headline-line"><span>for <span class="headline-accent">hype drops</span>, limited launches,</span></span>
+          <span class="headline-line"><span>and instant obsession.</span></span>
         </h1>
         <div class="type-line" aria-live="polite">
           <span id="typed-text"></span><span class="cursor">|</span>
@@ -774,7 +784,7 @@
   <script>
     const phrases = [
       "For the first to know.",
-      "For the culture, not the clutter.",
+      "Be first. Be only.",
       "For drops worth waiting for.",
       "For hype that actually lands."
     ];
