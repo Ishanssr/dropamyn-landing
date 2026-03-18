@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <title>Dropamyn</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #05070f;
-  color: white;
   overflow: hidden;
+  background: black;
+  color: white;
 }
 
 /* LOGO */
@@ -21,87 +21,97 @@ body {
   top: 30px;
   left: 40px;
   font-size: 1.6rem;
+  font-weight: 500;
   color: #eaeaea;
+  z-index: 10;
 }
 
-/* CENTER TEXT */
-.center {
+/* BACKGROUND GRID */
+.bg-container {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  transform: rotate(-10deg);
+  animation: scroll 30s linear infinite;
+  z-index: -2;
+}
+
+.bg-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+/* DARK OVERLAY */
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,0,0,0.3), black 70%);
+  z-index: -1;
+}
+
+/* HERO TEXT */
+.hero {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  max-width: 800px;
 }
 
-.tagline {
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.hero .tagline {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 1.6rem;
   color: #7aa2ff;
-}
-
-.sub {
-  opacity: 0.6;
   margin-top: 10px;
 }
 
+.hero .sub {
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
 .input-box {
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 input {
-  padding: 12px;
+  padding: 14px;
   border: none;
+  width: 260px;
   border-radius: 6px 0 0 6px;
 }
 
 button {
-  padding: 12px 18px;
+  padding: 14px 20px;
   background: #4a7dff;
   border: none;
   color: white;
   cursor: pointer;
   border-radius: 0 6px 6px 0;
+  font-weight: 500;
 }
 
-/* FLOATING CARDS */
-.card {
-  position: absolute;
-  width: 160px;
-  height: 200px;
-  border-radius: 12px;
-  overflow: hidden;
-  animation: float 12s linear infinite;
-  opacity: 0.2;
+button:hover {
+  background: #6f9bff;
 }
 
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* positions */
-.card:nth-child(1) { top: 10%; left: 10%; animation-duration: 18s; }
-.card:nth-child(2) { top: 70%; left: 20%; animation-duration: 14s; }
-.card:nth-child(3) { top: 20%; right: 15%; animation-duration: 20s; }
-.card:nth-child(4) { bottom: 10%; right: 10%; animation-duration: 16s; }
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-40px); }
-  100% { transform: translateY(0); }
-}
-
-/* CURSOR GLOW */
-.cursor {
-  width: 20px;
-  height: 20px;
-  background: rgba(100,150,255,0.3);
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
+/* SCROLL ANIMATION */
+@keyframes scroll {
+  0% { transform: translateY(0) rotate(-10deg); }
+  100% { transform: translateY(-50%) rotate(-10deg); }
 }
 </style>
 </head>
@@ -110,32 +120,42 @@ button {
 
 <div class="logo">Dropamyn</div>
 
-<!-- FLOATING PRODUCTS -->
-<div class="card"><img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6"></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64"></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1528701800489-20be3c1d5e56"></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1519741497674-611481863552"></div>
+<div class="overlay"></div>
 
-<div class="center">
-  <div class="tagline">Never miss a drop.</div>
-  <div class="sub">Discover. Track. Get it before it's gone.</div>
+<div class="bg-container">
+
+<!-- LOTS OF IMAGES -->
+<img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
+<img src="https://images.unsplash.com/photo-1593032465171-8e0c9bfc6a64">
+<img src="https://images.unsplash.com/photo-1528701800489-20be3c1d5e56">
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552">
+<img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+<img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6">
+<img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5">
+<img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
+<img src="https://images.unsplash.com/photo-1600185365319-2d6c15a4b6a3">
+<img src="https://images.unsplash.com/photo-1600185365526-35b5e1c1b0e7">
+<img src="https://images.unsplash.com/photo-1600180758890-6c3c1e38c5c6">
+
+</div>
+
+<div class="hero">
+  <h1>Drop culture is coming to India.</h1>
+
+  <div class="tagline">
+    Be first. Be early.
+  </div>
+
+  <div class="sub">
+    Get early access to exclusive drops.
+  </div>
 
   <div class="input-box">
     <input placeholder="Enter your email">
     <button>Request Invite</button>
   </div>
 </div>
-
-<div class="cursor" id="cursor"></div>
-
-<script>
-const cursor = document.getElementById("cursor");
-
-document.addEventListener("mousemove", (e) => {
-  cursor.style.top = e.clientY + "px";
-  cursor.style.left = e.clientX + "px";
-});
-</script>
 
 </body>
 </html>
