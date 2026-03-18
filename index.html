@@ -139,6 +139,7 @@
       align-items: center;
       gap: 12px;
       letter-spacing: -0.04em;
+      transition: opacity 220ms ease, transform 220ms ease;
     }
 
     .brand-mark {
@@ -550,12 +551,17 @@
         z-index: 6;
       }
 
+      .brand.is-hidden {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
       .brand-text {
-        font-size: 1.6rem;
+        font-size: 1.45rem;
       }
 
       .shell {
-        padding: 132px 18px 44px;
+        padding: 128px 18px 44px;
         min-height: auto;
       }
 
@@ -566,7 +572,9 @@
       }
 
       .eyebrow {
-        margin-bottom: 18px;
+        margin-bottom: 16px;
+        font-size: 0.68rem;
+        letter-spacing: 0.11em;
       }
 
       .mosaic {
@@ -602,7 +610,7 @@
       .type-line {
         margin-top: 34px;
         min-height: 62px;
-        font-size: clamp(2.4rem, 8vw, 3rem);
+        font-size: clamp(2.3rem, 7.4vw, 2.9rem);
       }
     }
 
@@ -618,15 +626,15 @@
       }
 
       h1 {
-        font-size: clamp(1.78rem, 10.8vw, 2.75rem);
-        line-height: 1.06;
+        font-size: clamp(1.68rem, 10.1vw, 2.55rem);
+        line-height: 1.08;
         max-width: 11ch;
       }
 
       .type-line {
         margin-top: 38px;
         min-height: 72px;
-        font-size: clamp(2.5rem, 9.6vw, 3.2rem);
+        font-size: clamp(2.45rem, 9vw, 3rem);
       }
 
       .microcopy {
@@ -764,6 +772,7 @@
     const form = document.getElementById("waitlist-form");
     const feedback = document.getElementById("feedback");
     const submitButton = form.querySelector("button");
+    const brand = document.querySelector(".brand");
     let phraseIndex = 0;
     let charIndex = 0;
     let deleting = false;
@@ -790,6 +799,20 @@
     }
 
     tickType();
+
+    function syncMobileBrand() {
+      if (!brand) return;
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (!isMobile) {
+        brand.classList.remove("is-hidden");
+        return;
+      }
+      brand.classList.toggle("is-hidden", window.scrollY > 28);
+    }
+
+    syncMobileBrand();
+    window.addEventListener("scroll", syncMobileBrand, { passive: true });
+    window.addEventListener("resize", syncMobileBrand);
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
