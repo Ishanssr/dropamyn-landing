@@ -59,7 +59,8 @@
 
     body {
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
       isolation: isolate;
     }
@@ -125,12 +126,13 @@
 
     .mosaic {
       position: fixed;
-      inset: -14vh -6vw;
+      inset: -16vh -10vw;
       display: grid;
       grid-template-columns: repeat(4, minmax(180px, 1fr));
-      gap: 18px;
-      transform: rotate(-11deg) scale(1.06);
+      gap: 20px;
+      transform: rotate(-10deg) scale(1.03);
       z-index: 0;
+      opacity: 0.82;
     }
 
     .column {
@@ -157,18 +159,18 @@
       position: relative;
       overflow: hidden;
       border-radius: 28px;
-      min-height: 220px;
+      min-height: 240px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.04);
       box-shadow: var(--shadow);
     }
 
     .card.tall {
-      min-height: 300px;
+      min-height: 340px;
     }
 
     .card.wide {
-      min-height: 250px;
+      min-height: 270px;
     }
 
     .card::after {
@@ -220,13 +222,14 @@
       position: relative;
       z-index: 2;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 108px 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 118px 24px 72px;
     }
 
     .hero {
-      width: min(920px, 100%);
+      width: min(780px, 100%);
       text-align: center;
     }
 
@@ -259,9 +262,9 @@
     h1 {
       margin: 0;
       font-family: "Sora", sans-serif;
-      font-size: clamp(3rem, 7vw, 6.3rem);
-      line-height: 0.95;
-      letter-spacing: -0.065em;
+      font-size: clamp(2.9rem, 6.2vw, 5.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
       text-wrap: balance;
     }
 
@@ -275,19 +278,19 @@
     }
 
     .copy {
-      width: min(720px, 100%);
-      margin: 22px auto 0;
-      font-size: clamp(1rem, 1.8vw, 1.22rem);
-      line-height: 1.65;
+      width: min(620px, 100%);
+      margin: 20px auto 0;
+      font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+      line-height: 1.72;
       color: var(--muted);
       text-wrap: balance;
     }
 
     .type-line {
-      margin-top: 20px;
-      min-height: 72px;
+      margin-top: 22px;
+      min-height: 58px;
       font-family: "Allura", cursive;
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-size: clamp(2.3rem, 4.1vw, 3.7rem);
       line-height: 1;
       color: #9bb8ff;
       text-shadow: 0 0 28px rgba(91, 140, 255, 0.22);
@@ -301,27 +304,27 @@
     }
 
     .microcopy {
-      margin-top: 8px;
-      font-size: 0.98rem;
+      margin-top: 4px;
+      font-size: 0.94rem;
       letter-spacing: 0.02em;
       color: rgba(248, 247, 244, 0.62);
     }
 
     .waitlist {
-      width: min(640px, 100%);
-      margin: 36px auto 0;
-      padding: 18px;
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
+      width: min(560px, 100%);
+      margin: 32px auto 0;
+      padding: 16px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045));
       border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
     }
 
     .waitlist-head {
-      margin-bottom: 14px;
-      font-size: 0.96rem;
-      color: rgba(248, 247, 244, 0.74);
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      color: rgba(248, 247, 244, 0.72);
     }
 
     .waitlist-form {
@@ -332,9 +335,9 @@
 
     .waitlist input {
       width: 100%;
-      padding: 18px 20px;
+      padding: 16px 18px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
+      border-radius: 16px;
       outline: none;
       background: rgba(0, 0, 0, 0.32);
       color: var(--text);
@@ -353,9 +356,9 @@
     }
 
     .waitlist button {
-      padding: 18px 24px;
+      padding: 16px 22px;
       border: none;
-      border-radius: 18px;
+      border-radius: 16px;
       background: linear-gradient(135deg, var(--accent), #739cff);
       color: white;
       font: inherit;
@@ -379,30 +382,12 @@
     .feedback {
       min-height: 24px;
       margin-top: 12px;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: rgba(248, 247, 244, 0.7);
     }
 
     .feedback.success {
       color: var(--success);
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .stat {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
-      font-size: 0.88rem;
-      color: rgba(248, 247, 244, 0.7);
-      backdrop-filter: blur(12px);
     }
 
     @keyframes drift-up {
@@ -435,13 +420,14 @@
     }
 
     @media (max-width: 1024px) {
-      body {
-        overflow-y: auto;
+      .mosaic {
+        inset: -18vh -24vw;
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
       }
 
-      .mosaic {
-        inset: -18vh -26vw;
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
+      .shell {
+        align-items: flex-start;
+        padding-top: 112px;
       }
     }
 
@@ -456,11 +442,12 @@
       }
 
       .shell {
-        padding: 96px 18px 32px;
+        padding: 96px 18px 40px;
         min-height: auto;
       }
 
       .hero {
+        width: min(680px, 100%);
         padding-bottom: 22px;
       }
 
@@ -469,6 +456,7 @@
         gap: 14px;
         grid-template-columns: repeat(2, minmax(180px, 1fr));
         transform: rotate(-8deg) scale(1.08);
+        opacity: 0.62;
       }
 
       .card {
@@ -499,12 +487,12 @@
     }
 
     @media (max-width: 560px) {
-      body {
-        overflow-x: hidden;
-      }
-
       .mosaic {
         opacity: 0.48;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 14vw, 4.2rem);
       }
 
       .copy {
@@ -534,7 +522,7 @@
         <span class="card-label">Jordans</span>
       </article>
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=900&q=80" alt="">
         <span class="card-label">Streetwear</span>
       </article>
       <article class="card wide">
@@ -568,7 +556,7 @@
 
     <div class="column" data-speed="fast">
       <article class="card wide">
-        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=900&q=80" alt="">
         <span class="card-label">Sneaker Heat</span>
       </article>
       <article class="card">
@@ -630,13 +618,6 @@
           <button type="submit">Request Invite</button>
         </form>
         <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
-        <div class="stats">
-          <div class="stat">Sneakers</div>
-          <div class="stat">Streetwear</div>
-          <div class="stat">Gaming</div>
-          <div class="stat">Tech</div>
-          <div class="stat">Collectibles</div>
-        </div>
       </div>
     </section>
   </main>
