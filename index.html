@@ -704,13 +704,13 @@
         <div class="microcopy">Coming soon, but not quietly.</div>
 
         <div class="waitlist">
-          <div class="waitlist-head">Join the waitlist for early access, launch updates, and first-wave invites.</div>
+          <div class="waitlist-head">Join early and get prioritized for the first wave, early perks, and launch access.</div>
           <form class="waitlist-form" id="waitlist-form">
             <label class="sr-only" for="email">Email address</label>
             <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
             <button type="submit">Get Prioritized</button>
           </form>
-          <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
+          <div class="feedback" id="feedback">Early joiners get moved ahead of the general waitlist.</div>
         </div>
       </div>
     </section>
@@ -727,6 +727,7 @@
     const typedText = document.getElementById("typed-text");
     const form = document.getElementById("waitlist-form");
     const feedback = document.getElementById("feedback");
+    const submitButton = form.querySelector("button");
     let phraseIndex = 0;
     let charIndex = 0;
     let deleting = false;
@@ -754,7 +755,7 @@
 
     tickType();
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const emailInput = form.elements.email;
       const email = emailInput.value.trim();
@@ -766,15 +767,40 @@
         return;
       }
 
-      const joined = JSON.parse(window.localStorage.getItem("dropamyn-waitlist") || "[]");
-      if (!joined.includes(email)) {
-        joined.push(email);
-        window.localStorage.setItem("dropamyn-waitlist", JSON.stringify(joined));
-      }
+      submitButton.disabled = true;
+      submitButton.textContent = "Saving...";
+      feedback.textContent = "Holding your spot...";
+      feedback.className = "feedback";
 
-      feedback.textContent = "You're on the list. We will reach out when the first wave opens.";
-      feedback.className = "feedback success";
-      form.reset();
+      try {
+        const response = await fetch("/api/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            signupSource: "dropamyn-landing",
+            joinedFrom: "vercel",
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Signup failed");
+        }
+
+        feedback.textContent = result.message;
+        feedback.className = "feedback success";
+        form.reset();
+      } catch (error) {
+        feedback.textContent = error.message || "Could not save your signup right now.";
+        feedback.className = "feedback";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Get Prioritized";
+      }
     });
   </script>
 </body>
