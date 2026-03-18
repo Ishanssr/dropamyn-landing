@@ -3,13 +3,10 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const TABLE_NAME = "waitlist_signups";
 
 function json(status, payload) {
-  return new Response(JSON.stringify(payload), {
+  return {
     status,
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-store",
-    },
-  });
+    payload,
+  };
 }
 
 function normalizeEmail(email) {
@@ -65,21 +62,24 @@ async function getSignupCount() {
   return Number.isFinite(total) ? total : 0;
 }
 
-export default async function handler(request) {
-  if (request.method !== "POST") {
-    return json(405, { error: "Method not allowed" });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    const result = json(405, { error: "Method not allowed" });
+    return res.status(result.status).json(result.payload);
   }
 
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    return json(500, { error: "Supabase env vars are missing" });
+    const result = json(500, { error: "Supabase env vars are missing" });
+    return res.status(result.status).json(result.payload);
   }
 
   try {
-    const body = await request.json();
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const email = normalizeEmail(body.email);
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return json(400, { error: "Enter a valid email address." });
+      const result = json(400, { error: "Enter a valid email address." });
+      return res.status(result.status).json(result.payload);
     }
 
     const existingRows = await supabaseFetch(
@@ -87,12 +87,13 @@ export default async function handler(request) {
     );
 
     if (existingRows?.length) {
-      return json(200, {
+      const result = json(200, {
         ok: true,
         duplicate: true,
         priorityTier: existingRows[0].priority_tier,
         message: "You are already prioritized. We will reach out when your wave opens.",
       });
+      return res.status(result.status).json(result.payload);
     }
 
     const totalSignups = await getSignupCount();
@@ -106,12 +107,12 @@ export default async function handler(request) {
           priority_tier: priorityTier,
           signup_source: body.signupSource || "dropamyn-landing",
           joined_from: body.joinedFrom || "vercel",
-          user_agent: request.headers.get("user-agent") || null,
+          user_agent: req.headers["user-agent"] || null,
         },
       ]),
     });
 
-    return json(200, {
+    const result = json(200, {
       ok: true,
       duplicate: false,
       priorityTier: inserted?.[0]?.priority_tier || priorityTier,
@@ -122,10 +123,12 @@ export default async function handler(request) {
             ? "You are in the priority wave. We will keep you ahead of the general list."
             : "You are on the waitlist. We will notify you as soon as new spots open.",
     });
+    return res.status(result.status).json(result.payload);
   } catch (error) {
-    return json(500, {
+    const result = json(500, {
       error: "Could not save your signup right now.",
       details: error.message,
     });
+    return res.status(result.status).json(result.payload);
   }
 }
