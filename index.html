@@ -313,15 +313,15 @@
 
     h1 {
       margin: 0;
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 3.9vw, 3.45rem);
-      line-height: 1.04;
-      letter-spacing: -0.07em;
-      font-weight: 600;
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(1.82rem, 3.4vw, 3.02rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      font-weight: 500;
       text-wrap: balance;
-      max-width: 12ch;
+      max-width: 11.6ch;
       margin-inline: auto;
-      text-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+      text-shadow: 0 10px 34px rgba(0, 0, 0, 0.24);
     }
 
     .headline-accent {
@@ -356,10 +356,10 @@
     }
 
     .type-line {
-      margin-top: 40px;
-      min-height: 58px;
+      margin-top: 56px;
+      min-height: 68px;
       font-family: "Allura", cursive;
-      font-size: clamp(2.1rem, 3.2vw, 2.9rem);
+      font-size: clamp(2.25rem, 3.4vw, 3.05rem);
       line-height: 1;
       color: #9bb8ff;
       text-shadow: 0 0 28px rgba(91, 140, 255, 0.28);
@@ -373,7 +373,7 @@
     }
 
     .microcopy {
-      margin-top: 8px;
+      margin-top: 14px;
       font-size: 0.88rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -394,7 +394,7 @@
 
     .waitlist-head {
       margin-bottom: 14px;
-      font-size: 0.86rem;
+      font-size: 0.8rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(248, 247, 244, 0.66);
@@ -561,20 +561,18 @@
       }
 
       .shell {
-        padding: 128px 18px 44px;
+        padding: 154px 18px 48px;
         min-height: auto;
       }
 
       .hero {
-        width: min(680px, 100%);
+        width: min(620px, 100%);
         padding: 0;
         padding-bottom: 22px;
       }
 
       .eyebrow {
-        margin-bottom: 16px;
-        font-size: 0.68rem;
-        letter-spacing: 0.11em;
+        display: none;
       }
 
       .mosaic {
@@ -608,9 +606,14 @@
       }
 
       .type-line {
-        margin-top: 34px;
-        min-height: 62px;
-        font-size: clamp(2.3rem, 7.4vw, 2.9rem);
+        margin-top: 48px;
+        min-height: 70px;
+        font-size: clamp(2.4rem, 7.8vw, 3.1rem);
+      }
+
+      .waitlist-head {
+        margin-bottom: 12px;
+        font-size: 0.74rem;
       }
     }
 
@@ -626,20 +629,20 @@
       }
 
       h1 {
-        font-size: clamp(1.68rem, 10.1vw, 2.55rem);
-        line-height: 1.08;
-        max-width: 11ch;
+        font-size: clamp(1.52rem, 9vw, 2.18rem);
+        line-height: 1.12;
+        max-width: 10.8ch;
       }
 
       .type-line {
-        margin-top: 38px;
-        min-height: 72px;
-        font-size: clamp(2.45rem, 9vw, 3rem);
+        margin-top: 52px;
+        min-height: 78px;
+        font-size: clamp(2.55rem, 10vw, 3.15rem);
       }
 
       .microcopy {
-        margin-top: 10px;
-        font-size: 0.82rem;
+        margin-top: 14px;
+        font-size: 0.78rem;
       }
     }
   </style>
@@ -748,7 +751,7 @@
         <div class="microcopy">Coming soon, but not quietly.</div>
 
         <div class="waitlist">
-          <div class="waitlist-head">Join early and get prioritized for the first wave, early perks, and launch access.</div>
+          <div class="waitlist-head">Priority access for early signups.</div>
           <form class="waitlist-form" id="waitlist-form">
             <label class="sr-only" for="email">Email address</label>
             <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
