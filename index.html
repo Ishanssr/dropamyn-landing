@@ -20,8 +20,6 @@
       --surface: rgba(255, 255, 255, 0.08);
       --surface-strong: rgba(255, 255, 255, 0.12);
       --border: rgba(255, 255, 255, 0.12);
-      --glass: rgba(255, 255, 255, 0.08);
-      --glass-strong: rgba(255, 255, 255, 0.14);
       --text: #f8f7f4;
       --muted: rgba(248, 247, 244, 0.72);
       --accent: #5b8cff;
@@ -233,102 +231,57 @@
 
     .hero {
       position: relative;
-      width: min(760px, 100%);
+      width: min(700px, 100%);
       text-align: center;
-      padding: 34px 32px 28px;
-      border-radius: 38px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 26px 90px rgba(0, 0, 0, 0.42);
-      backdrop-filter: blur(30px) saturate(130%);
-      -webkit-backdrop-filter: blur(30px) saturate(130%);
-      overflow: hidden;
-      transform-style: preserve-3d;
-      will-change: transform;
-      transition: transform 220ms ease-out;
-      animation: heroFloat 9s ease-in-out infinite;
+      padding: 8px 8px 0;
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      inset: 1px;
-      border-radius: 37px;
+      top: 12%;
+      left: 50%;
+      width: 74%;
+      height: 62%;
+      transform: translateX(-50%);
       background:
-        linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.06)),
-        radial-gradient(circle at top left, rgba(91, 140, 255, 0.12), transparent 32%);
+        radial-gradient(circle, rgba(91, 140, 255, 0.18), transparent 58%);
+      filter: blur(48px);
+      opacity: 0.9;
       pointer-events: none;
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      top: -38%;
-      left: -25%;
-      width: 54%;
-      height: 180%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-      transform: rotate(16deg);
-      opacity: 0.45;
-      filter: blur(14px);
-      animation: glassSweep 8s linear infinite;
+      left: 50%;
+      bottom: 18px;
+      width: 220px;
+      height: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      opacity: 0.55;
       pointer-events: none;
     }
 
     .hero-inner {
       position: relative;
       z-index: 1;
-    }
-
-    .float-pill {
-      position: absolute;
-      z-index: 1;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
-      color: rgba(248, 247, 244, 0.82);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      animation: badgeFloat 7s ease-in-out infinite;
-    }
-
-    .float-pill.left {
-      top: 78px;
-      left: -58px;
-      animation-delay: -1.5s;
-    }
-
-    .float-pill.right {
-      right: -54px;
-      bottom: 132px;
-      animation-delay: -3s;
+      animation: heroEnter 1s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 16px;
-      margin-bottom: 24px;
+      padding: 8px 0;
+      margin-bottom: 16px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(14px);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(248, 247, 244, 0.76);
+      color: rgba(248, 247, 244, 0.68);
     }
 
     .eyebrow::before {
@@ -343,13 +296,13 @@
     h1 {
       margin: 0;
       font-family: "Sora", sans-serif;
-      font-size: clamp(2.55rem, 5vw, 4.45rem);
-      line-height: 1.01;
-      letter-spacing: -0.075em;
+      font-size: clamp(2.2rem, 4.2vw, 3.75rem);
+      line-height: 1.04;
+      letter-spacing: -0.07em;
       text-wrap: balance;
-      max-width: 13ch;
+      max-width: 12ch;
       margin-inline: auto;
-      text-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
+      text-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
     }
 
     .headline-accent {
@@ -361,20 +314,38 @@
       text-shadow: 0 0 30px rgba(91, 140, 255, 0.22);
     }
 
+    .headline-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .headline-line > span {
+      display: inline-block;
+      animation: riseIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .headline-line:nth-child(2) > span {
+      animation-delay: 0.08s;
+    }
+
+    .headline-line:nth-child(3) > span {
+      animation-delay: 0.16s;
+    }
+
     .copy {
-      width: min(620px, 100%);
-      margin: 18px auto 0;
-      font-size: clamp(0.98rem, 1.2vw, 1.04rem);
-      line-height: 1.72;
-      color: rgba(248, 247, 244, 0.76);
+      width: min(560px, 100%);
+      margin: 20px auto 0;
+      font-size: clamp(0.94rem, 1.05vw, 1rem);
+      line-height: 1.8;
+      color: rgba(248, 247, 244, 0.74);
       text-wrap: balance;
     }
 
     .type-line {
-      margin-top: 22px;
-      min-height: 52px;
+      margin-top: 24px;
+      min-height: 46px;
       font-family: "Allura", cursive;
-      font-size: clamp(2rem, 3.4vw, 3rem);
+      font-size: clamp(1.9rem, 2.8vw, 2.5rem);
       line-height: 1;
       color: #9bb8ff;
       text-shadow: 0 0 28px rgba(91, 140, 255, 0.28);
@@ -388,50 +359,50 @@
     }
 
     .microcopy {
-      margin-top: 4px;
-      font-size: 0.94rem;
-      letter-spacing: 0.02em;
+      margin-top: 8px;
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: rgba(248, 247, 244, 0.62);
     }
 
     .waitlist {
-      width: min(560px, 100%);
-      margin: 32px auto 0;
-      padding: 16px;
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(28px) saturate(145%);
-      -webkit-backdrop-filter: blur(28px) saturate(145%);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 24px 70px rgba(0, 0, 0, 0.32);
+      width: min(540px, 100%);
+      margin: 34px auto 0;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
     }
 
     .waitlist-head {
-      margin-bottom: 12px;
-      font-size: 0.92rem;
-      color: rgba(248, 247, 244, 0.72);
+      margin-bottom: 14px;
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.66);
     }
 
     .waitlist-form {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 12px;
+      gap: 10px;
     }
 
     .waitlist input {
       width: 100%;
       padding: 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
       outline: none;
-      background: rgba(5, 5, 5, 0.34);
+      background: rgba(8, 8, 8, 0.82);
       color: var(--text);
       font: inherit;
       transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     .waitlist input::placeholder {
@@ -447,7 +418,7 @@
     .waitlist button {
       padding: 16px 22px;
       border: none;
-      border-radius: 16px;
+      border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), #739cff);
       color: white;
       font: inherit;
@@ -508,32 +479,25 @@
       }
     }
 
-    @keyframes heroFloat {
-      0%,
-      100% {
-        transform: translateY(0px);
+    @keyframes heroEnter {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
       }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    @keyframes badgeFloat {
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    @keyframes glassSweep {
-      0% {
-        transform: translateX(-40%) rotate(16deg);
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
       }
-      100% {
-        transform: translateX(220%) rotate(16deg);
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
@@ -548,13 +512,6 @@
         padding-top: 112px;
       }
 
-      .float-pill.left {
-        left: -10px;
-      }
-
-      .float-pill.right {
-        right: -8px;
-      }
     }
 
     @media (max-width: 768px) {
@@ -574,17 +531,8 @@
 
       .hero {
         width: min(680px, 100%);
-        padding: 26px 18px 22px;
-        border-radius: 28px;
+        padding: 0;
         padding-bottom: 22px;
-      }
-
-      .hero::before {
-        border-radius: 27px;
-      }
-
-      .float-pill {
-        display: none;
       }
 
       .mosaic {
@@ -628,7 +576,7 @@
       }
 
       h1 {
-        font-size: clamp(2.45rem, 13vw, 3.8rem);
+        font-size: clamp(2rem, 12vw, 3.2rem);
       }
 
       .copy {
@@ -731,14 +679,12 @@
 
   <main class="shell">
     <section class="hero">
-      <div class="float-pill left">Hype radar live</div>
-      <div class="float-pill right">Built for the first wave</div>
       <div class="hero-inner">
         <div class="eyebrow">Early access for India&apos;s next drop generation</div>
         <h1>
-          India&apos;s new home for
-          <span class="headline-accent">hype drops</span>,
-          limited launches, and instant obsession.
+          <span class="headline-line"><span>India&apos;s new home</span></span>
+          <span class="headline-line"><span>for <span class="headline-accent">hype drops</span>,</span></span>
+          <span class="headline-line"><span>limited launches, and instant obsession.</span></span>
         </h1>
         <p class="copy">
           Sneakers, streetwear, gaming, tech, collectibles, and the kind of launches people screenshot,
@@ -759,7 +705,7 @@
           <div class="feedback" id="feedback">Built for people who want the drop before the group chat hears about it.</div>
         </div>
       </div>
-      </section>
+    </section>
   </main>
 
   <script>
@@ -773,7 +719,6 @@
     const typedText = document.getElementById("typed-text");
     const form = document.getElementById("waitlist-form");
     const feedback = document.getElementById("feedback");
-    const hero = document.querySelector(".hero");
     let phraseIndex = 0;
     let charIndex = 0;
     let deleting = false;
@@ -800,18 +745,6 @@
     }
 
     tickType();
-
-    if (hero && window.matchMedia("(min-width: 769px)").matches) {
-      window.addEventListener("mousemove", (event) => {
-        const x = (event.clientX / window.innerWidth - 0.5) * 10;
-        const y = (event.clientY / window.innerHeight - 0.5) * 8;
-        hero.style.transform = `perspective(1200px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-4px)`;
-      });
-
-      document.addEventListener("mouseleave", () => {
-        hero.style.transform = "";
-      });
-    }
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
