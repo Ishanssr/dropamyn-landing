@@ -175,6 +175,13 @@
       color: var(--text);
     }
 
+    .brand-accent {
+      background: linear-gradient(90deg, #b8ccff, #9f8cff, #c4a6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
     /* ─── MOSAIC BACKGROUND ─── */
     .mosaic {
       position: fixed;
@@ -662,7 +669,7 @@
 
   <a href="/" class="brand" aria-label="Dropamyn">
     <span class="brand-dot" aria-hidden="true"></span>
-    <span class="brand-name">Dropamyn</span>
+    <span class="brand-name">Dropa<span class="brand-accent">myn</span></span>
   </a>
 
   <div class="mosaic" aria-hidden="true">
