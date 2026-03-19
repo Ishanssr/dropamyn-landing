@@ -359,7 +359,6 @@
       100% { background-position: 250% 50%; }
     }
 
-    /* ─── TYPED LINE ─── */
     .type-line {
       margin-top: 48px;
       min-height: 56px;
@@ -368,14 +367,24 @@
       font-weight: 400;
       font-style: normal;
       line-height: 1.2;
-      color: rgba(124, 156, 255, 0.75);
       letter-spacing: 0.01em;
+      background: linear-gradient(90deg, #5ef5d0, #f0a0ff, #5ef5d0, #a78bfa, #5ef5d0);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient-flow 5s linear infinite;
+    }
+
+    @keyframes gradient-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
     }
 
     .cursor {
       display: inline-block;
       margin-left: 2px;
-      color: rgba(124, 156, 255, 0.6);
+      color: rgba(94, 245, 208, 0.7);
       animation: blink 1s steps(1) infinite;
       font-weight: 200;
     }
@@ -667,8 +676,8 @@
         <span class="card-label">Headphones</span>
       </article>
       <article class="card wide">
-        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
-        <span class="card-label">Urban Style</span>
+        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+        <span class="card-label">Collectibles</span>
       </article>
       <article class="card">
         <img src="https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
@@ -690,8 +699,8 @@
         <span class="card-label">Street Fits</span>
       </article>
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
-        <span class="card-label">Outdoor Fits</span>
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+        <span class="card-label">Gaming</span>
       </article>
       <article class="card wide">
         <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
