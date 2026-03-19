@@ -74,12 +74,19 @@
       border: 0;
     }
 
-    /* ─── CANVAS CURSOR ─── */
-    #smoke-canvas {
+    /* ─── CURSOR AURA ─── */
+    .cursor-aura {
       position: fixed;
-      inset: 0;
       z-index: 9999;
       pointer-events: none;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124, 156, 255, 0.12), rgba(124, 156, 255, 0.04) 40%, transparent 70%);
+      filter: blur(18px);
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 200ms ease;
       mix-blend-mode: screen;
     }
 
@@ -600,7 +607,7 @@
         height: 50px;
       }
 
-      #smoke-canvas {
+      .cursor-aura {
         display: none;
       }
     }
@@ -635,17 +642,17 @@
   </style>
 </head>
 <body>
-  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+  <div class="cursor-aura" aria-hidden="true"></div>
 
   <div class="ambient ambient-glow"></div>
   <div class="ambient ambient-grain"></div>
   <div class="ambient ambient-vignette"></div>
   <div class="frame"></div>
 
-  <div class="brand" aria-label="Dropamyn">
+  <a href="/" class="brand" aria-label="Dropamyn">
     <span class="brand-dot" aria-hidden="true"></span>
     <span class="brand-name">Dropamyn</span>
-  </div>
+  </a>
 
   <div class="mosaic" aria-hidden="true">
     <div class="column" data-speed="slow">
@@ -840,138 +847,19 @@
     window.addEventListener("scroll", syncMobileBrand, { passive: true });
 
     /* ═══════════════════════════════════
-       SMOKEY CURSOR PARTICLE SYSTEM
+       CURSOR AURA
     ═══════════════════════════════════ */
-    const canvas = document.getElementById("smoke-canvas");
-    const ctx = canvas.getContext("2d");
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    const isMobileView = () => window.innerWidth <= 768;
-
-    let particles = [];
-    let mouse = { x: -200, y: -200 };
-    let prevMouse = { x: -200, y: -200 };
-    let animFrame;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    class Particle {
-      constructor(x, y, vx, vy) {
-        this.x = x;
-        this.y = y;
-        this.vx = vx + (Math.random() - 0.5) * 1.5;
-        this.vy = vy + (Math.random() - 0.5) * 1.5;
-        this.life = 1;
-        this.decay = 0.008 + Math.random() * 0.012;
-        this.size = 18 + Math.random() * 28;
-        this.rotation = Math.random() * Math.PI * 2;
-        this.rotationSpeed = (Math.random() - 0.5) * 0.04;
-
-        // Brand gradient colors: blue → purple → warm
-        const colors = [
-          [124, 156, 255],  // accent blue
-          [159, 140, 255],  // purple
-          [180, 160, 255],  // light purple
-          [255, 154, 108],  // warm orange
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.vx *= 0.98;
-        this.vy *= 0.98;
-        this.vy -= 0.06; // slight upward drift like smoke
-        this.life -= this.decay;
-        this.size *= 1.005; // expand slightly like smoke
-        this.rotation += this.rotationSpeed;
-      }
-
-      draw() {
-        const alpha = this.life * 0.18;
-        if (alpha <= 0) return;
-
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
-        ctx.globalAlpha = alpha;
-
-        // Soft radial gradient for smokey look
-        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
-        gradient.addColorStop(0, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, 0.5)`);
-        gradient.addColorStop(0.4, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, 0.2)`);
-        gradient.addColorStop(1, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, 0)`);
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    function spawnParticles() {
-      const dx = mouse.x - prevMouse.x;
-      const dy = mouse.y - prevMouse.y;
-      const speed = Math.sqrt(dx * dx + dy * dy);
-
-      // Spawn more particles when moving faster
-      const count = Math.min(Math.floor(speed * 0.3), 4);
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle(
-          mouse.x + (Math.random() - 0.5) * 8,
-          mouse.y + (Math.random() - 0.5) * 8,
-          dx * 0.08,
-          dy * 0.08
-        ));
-      }
-
-      // Also spawn a subtle ambient particle even when still
-      if (speed < 2 && Math.random() < 0.15) {
-        particles.push(new Particle(
-          mouse.x + (Math.random() - 0.5) * 12,
-          mouse.y + (Math.random() - 0.5) * 12,
-          (Math.random() - 0.5) * 0.3,
-          -Math.random() * 0.4
-        ));
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (!isTouchDevice && !isMobileView()) {
-        spawnParticles();
-      }
-
-      particles = particles.filter((p) => p.life > 0);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-
-      // Cap particle count for performance
-      if (particles.length > 150) {
-        particles = particles.slice(-150);
-      }
-
-      prevMouse.x = mouse.x;
-      prevMouse.y = mouse.y;
-      animFrame = requestAnimationFrame(animateParticles);
-    }
-
-    if (!isTouchDevice) {
+    const aura = document.querySelector(".cursor-aura");
+    if (aura && !("ontouchstart" in window)) {
       document.addEventListener("mousemove", (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+        aura.style.left = e.clientX + "px";
+        aura.style.top = e.clientY + "px";
+        aura.style.opacity = "1";
       }, { passive: true });
 
-      animateParticles();
+      document.addEventListener("mouseleave", () => {
+        aura.style.opacity = "0";
+      });
     }
 
     /* ═══════════════════════════════════
