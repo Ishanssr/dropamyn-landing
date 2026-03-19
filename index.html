@@ -525,9 +525,8 @@
       }
 
       .shell {
-        padding: 90px 20px 24px;
+        padding: 80px 20px 200px;
         min-height: 100vh;
-        min-height: 100svh;
         overflow: hidden;
       }
 
@@ -536,8 +535,7 @@
       }
 
       .hero-inner {
-        min-height: calc(100vh - 114px);
-        min-height: calc(100svh - 114px);
+        min-height: auto;
         justify-content: flex-start;
       }
 
@@ -575,9 +573,17 @@
       }
 
       .waitlist {
-        margin-top: auto;
-        padding: 0;
-        padding-top: 24px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        margin: 0;
+        padding: 16px 20px 20px;
+        background: rgba(6, 6, 6, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
         transform: none;
       }
 
@@ -684,8 +690,8 @@
 
     <div class="column" data-speed="mid">
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
-        <span class="card-label">Mountain Views</span>
+        <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+        <span class="card-label">Mountain Fits</span>
       </article>
       <article class="card tall">
         <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
@@ -723,8 +729,8 @@
         <span class="card-label">Bonkers Drops</span>
       </article>
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
-        <span class="card-label">Adventure</span>
+        <img src="https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+        <span class="card-label">Outdoor Style</span>
       </article>
     </div>
 
