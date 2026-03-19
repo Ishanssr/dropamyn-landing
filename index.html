@@ -525,18 +525,25 @@
       }
 
       .shell {
-        padding: 80px 20px 36px;
+        padding: 80px 20px 28px;
         min-height: 100vh;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
 
       .hero {
         width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .hero-inner {
-        min-height: auto;
-        justify-content: flex-start;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .eyebrow {
@@ -555,9 +562,6 @@
         opacity: 0.35;
       }
 
-      .column {
-        animation: none !important;
-      }
 
       .card {
         min-height: 160px;
@@ -577,7 +581,7 @@
       }
 
       .waitlist {
-        margin-top: 80px;
+        margin-top: auto;
         padding: 0;
         transform: none;
       }
