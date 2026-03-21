@@ -167,6 +167,31 @@
       background: radial-gradient(ellipse 70% 60% at center, transparent 30%, var(--bg) 100%);
     }
 
+    /* ─── SUBLIMINAL WATERMARK ─── */
+    .subliminal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      z-index: 1;
+      pointer-events: none;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.03);
+      user-select: none;
+      -webkit-user-select: none;
+      animation: subliminal-drift 20s ease-in-out infinite;
+    }
+
+    @keyframes subliminal-drift {
+      0%, 100% { transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
+      50% { transform: translate(-50%, -50%) rotate(-10deg) scale(1.02); }
+    }
+
     /* ─── FRAME CORNERS ─── */
     .frame {
       position: fixed;
@@ -718,6 +743,7 @@
   <div class="ambient ambient-grain"></div>
   <div class="ambient ambient-vignette"></div>
   <div class="frame"></div>
+  <div class="subliminal" aria-hidden="true">only for the nerdy ones</div>
 
   <a href="/" class="brand" aria-label="Dropamyn">
     <span class="brand-dot" aria-hidden="true"></span>
