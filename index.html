@@ -167,29 +167,83 @@
       background: radial-gradient(ellipse 70% 60% at center, transparent 30%, var(--bg) 100%);
     }
 
-    /* ─── SUBLIMINAL WATERMARK ─── */
-    .subliminal {
+    /* ─── NEON BACKGROUND TEXT (GTA 6 STYLE) ─── */
+    .neon-bg-text {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(-12deg);
+      transform: translate(-50%, -50%);
       z-index: 1;
       pointer-events: none;
       font-family: "Sora", sans-serif;
-      font-size: clamp(4rem, 12vw, 10rem);
+      font-size: clamp(3rem, 10vw, 8rem);
       font-weight: 800;
-      letter-spacing: -0.04em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       white-space: nowrap;
-      color: rgba(255, 255, 255, 0.03);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 50, 120, 0.3);
       user-select: none;
       -webkit-user-select: none;
-      animation: subliminal-drift 20s ease-in-out infinite;
+      animation: neon-flicker 4s ease-in-out infinite;
+      text-shadow:
+        0 0 7px rgba(255, 50, 120, 0.15),
+        0 0 20px rgba(255, 50, 120, 0.1),
+        0 0 42px rgba(255, 50, 120, 0.06),
+        0 0 80px rgba(255, 50, 120, 0.03);
     }
 
-    @keyframes subliminal-drift {
-      0%, 100% { transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
-      50% { transform: translate(-50%, -50%) rotate(-10deg) scale(1.02); }
+    @keyframes neon-flicker {
+      0%, 100% {
+        opacity: 0.5;
+        text-shadow:
+          0 0 7px rgba(255, 50, 120, 0.15),
+          0 0 20px rgba(255, 50, 120, 0.1),
+          0 0 42px rgba(255, 50, 120, 0.06),
+          0 0 80px rgba(255, 50, 120, 0.03);
+      }
+      8% {
+        opacity: 0.35;
+        text-shadow:
+          0 0 4px rgba(255, 50, 120, 0.08),
+          0 0 12px rgba(255, 50, 120, 0.05);
+      }
+      10% {
+        opacity: 0.55;
+        text-shadow:
+          0 0 7px rgba(255, 50, 120, 0.18),
+          0 0 24px rgba(255, 50, 120, 0.12),
+          0 0 50px rgba(255, 50, 120, 0.07);
+      }
+      50% {
+        opacity: 0.6;
+        text-shadow:
+          0 0 10px rgba(255, 50, 120, 0.2),
+          0 0 28px rgba(255, 50, 120, 0.14),
+          0 0 55px rgba(255, 50, 120, 0.08),
+          0 0 100px rgba(255, 50, 120, 0.04);
+      }
+      52% {
+        opacity: 0.4;
+        text-shadow:
+          0 0 4px rgba(255, 50, 120, 0.06),
+          0 0 10px rgba(255, 50, 120, 0.04);
+      }
+      54% {
+        opacity: 0.6;
+        text-shadow:
+          0 0 10px rgba(255, 50, 120, 0.2),
+          0 0 28px rgba(255, 50, 120, 0.14),
+          0 0 55px rgba(255, 50, 120, 0.08),
+          0 0 100px rgba(255, 50, 120, 0.04);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .neon-bg-text {
+        font-size: clamp(1.8rem, 9vw, 3.5rem);
+        -webkit-text-stroke: 0.5px rgba(255, 50, 120, 0.25);
+      }
     }
 
     /* ─── FRAME CORNERS ─── */
@@ -743,7 +797,7 @@
   <div class="ambient ambient-grain"></div>
   <div class="ambient ambient-vignette"></div>
   <div class="frame"></div>
-  <div class="subliminal" aria-hidden="true">only for the nerdy ones</div>
+  <div class="neon-bg-text" aria-hidden="true">nerdy ones only</div>
 
   <a href="/" class="brand" aria-label="Dropamyn">
     <span class="brand-dot" aria-hidden="true"></span>
