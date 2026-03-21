@@ -19,3 +19,23 @@ create policy "service role manages waitlist signups"
   for all
   using (auth.role() = 'service_role')
   with check (auth.role() = 'service_role');
+
+-- ─── Verification codes for email verification ───
+create table if not exists public.verification_codes (
+  id bigint generated always as identity primary key,
+  email text not null,
+  code text not null,
+  expires_at timestamptz not null,
+  created_at timestamptz not null default timezone('utc'::text, now())
+);
+
+create index if not exists verification_codes_email_idx
+  on public.verification_codes (email);
+
+alter table public.verification_codes enable row level security;
+
+create policy "service role manages verification codes"
+  on public.verification_codes
+  for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');

@@ -1,13 +1,5 @@
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const TABLE_NAME = "waitlist_signups";
-
-function json(status, payload) {
-  return {
-    status,
-    payload,
-  };
-}
 
 function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
@@ -41,7 +33,7 @@ async function supabaseFetch(path, options = {}) {
 }
 
 async function getSignupCount() {
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=id`, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_signups?select=id`, {
     headers: {
       apikey: SUPABASE_SERVICE_ROLE_KEY,
       Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
@@ -64,42 +56,76 @@ async function getSignupCount() {
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    const result = json(405, { error: "Method not allowed" });
-    return res.status(result.status).json(result.payload);
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    const result = json(500, { error: "Supabase env vars are missing" });
-    return res.status(result.status).json(result.payload);
+    return res.status(500).json({ error: "Supabase env vars are missing" });
   }
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const email = normalizeEmail(body.email);
+    const code = String(body.code || "").trim();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      const result = json(400, { error: "Enter a valid email address." });
-      return res.status(result.status).json(result.payload);
+      return res.status(400).json({ error: "Enter a valid email address." });
     }
 
+    if (!code || !/^\d{6}$/.test(code)) {
+      return res.status(400).json({ error: "Enter the 6-digit verification code." });
+    }
+
+    // ── Verify the code ──
+    const codeRows = await supabaseFetch(
+      `/rest/v1/verification_codes?select=id,code,expires_at&email=eq.${encodeURIComponent(email)}&order=created_at.desc&limit=1`
+    );
+
+    if (!codeRows?.length) {
+      return res.status(400).json({ error: "No verification code found. Please request a new one." });
+    }
+
+    const latestCode = codeRows[0];
+
+    if (latestCode.code !== code) {
+      return res.status(400).json({ error: "Incorrect code. Please check and try again." });
+    }
+
+    if (new Date(latestCode.expires_at) < new Date()) {
+      return res.status(400).json({ error: "Code has expired. Please request a new one." });
+    }
+
+    // ── Delete used codes for this email ──
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/verification_codes?email=eq.${encodeURIComponent(email)}`,
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_SERVICE_ROLE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        },
+      }
+    );
+
+    // ── Check for duplicate signups ──
     const existingRows = await supabaseFetch(
-      `/rest/v1/${TABLE_NAME}?select=id,email,priority_tier&email=eq.${encodeURIComponent(email)}&limit=1`
+      `/rest/v1/waitlist_signups?select=id,email,priority_tier&email=eq.${encodeURIComponent(email)}&limit=1`
     );
 
     if (existingRows?.length) {
-      const result = json(200, {
+      return res.status(200).json({
         ok: true,
         duplicate: true,
         priorityTier: existingRows[0].priority_tier,
         message: "This email is already prioritized. We will reach out when your wave opens.",
       });
-      return res.status(result.status).json(result.payload);
     }
 
+    // ── Save the signup ──
     const totalSignups = await getSignupCount();
     const priorityTier = getPriorityTier(totalSignups);
 
-    const inserted = await supabaseFetch(`/rest/v1/${TABLE_NAME}`, {
+    const inserted = await supabaseFetch("/rest/v1/waitlist_signups", {
       method: "POST",
       body: JSON.stringify([
         {
@@ -112,23 +138,23 @@ export default async function handler(req, res) {
       ]),
     });
 
-    const result = json(200, {
+    const message =
+      priorityTier === "founding"
+        ? "You're verified! You are in the founding wave — we'll prioritize you for the earliest drops."
+        : priorityTier === "priority"
+          ? "You're verified! You are in the priority wave — we'll keep you ahead of the general list."
+          : "You're verified! You are on the waitlist — we'll notify you as soon as new spots open.";
+
+    return res.status(200).json({
       ok: true,
       duplicate: false,
       priorityTier: inserted?.[0]?.priority_tier || priorityTier,
-      message:
-        priorityTier === "founding"
-          ? "You are in the founding wave. We will prioritize you for the earliest drops."
-          : priorityTier === "priority"
-            ? "You are in the priority wave. We will keep you ahead of the general list."
-            : "You are on the waitlist. We will notify you as soon as new spots open.",
+      message,
     });
-    return res.status(result.status).json(result.payload);
   } catch (error) {
-    const result = json(500, {
-      error: "Could not save your signup right now.",
+    return res.status(500).json({
+      error: "Could not complete your signup right now.",
       details: error.message,
     });
-    return res.status(result.status).json(result.payload);
   }
 }
